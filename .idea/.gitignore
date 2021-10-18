@@ -1,0 +1,17 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+.idea
+*.iml
+out
+gen
+/.apt_generated/
+/.classpath
+/.factorypath
+/.project
+/.settings/
+/.springBeans
+/target/
+/user-profile-analysis.iml
+/.idea
+.DS_Store
