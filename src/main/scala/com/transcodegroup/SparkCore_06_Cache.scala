@@ -46,6 +46,18 @@ object SparkCore_06_Cache {
     rdd3.collect.foreach(println)
     println("2.-----------")
     rdd3.collect.foreach(println)
+
+
+    val rdd = sc.makeRDD(List("abc"))
+    val nocacheRdd = rdd.map(_.toString + " 不缓存 -> " + System.currentTimeMillis)
+    nocacheRdd.collect.foreach(println)
+    nocacheRdd.collect.foreach(println)
+    nocacheRdd.collect.foreach(println)
+
+    val cacheRdd = rdd.map(_.toString + " 缓存 -> " + System.currentTimeMillis).cache()
+    cacheRdd.collect.foreach(println)
+    cacheRdd.collect.foreach(println)
+    cacheRdd.collect.foreach(println)
   }
 
 }

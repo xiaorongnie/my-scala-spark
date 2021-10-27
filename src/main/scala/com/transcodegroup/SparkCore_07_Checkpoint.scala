@@ -27,20 +27,24 @@ object SparkCore_07_Checkpoint {
     Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
     Logger.getLogger("org.spark-project").setLevel(Level.WARN)
 
-    //创建conf对象
+    // 要在SparkContext初始化之前设置, 都在无效
+    System.setProperty("HADOOP_USER_NAME", "root")
     val conf = new SparkConf().setAppName("Practice").setMaster("local[2]")
     val sc = new SparkContext(conf)
+    // 设置 checkpoint的目录. 如果spark运行在集群上, 则必须是 hdfs 目录
+    sc.setCheckpointDir("hdfs://192.168.0.230:9000/ck2")
+    val rdd1 = sc.parallelize(List("abc"))
+    val rdd2: RDD[String] = rdd1.map(_ + " : " + System.currentTimeMillis())
 
-    val rdd = sc.makeRDD(List("abc"))
-    val nocacheRdd = rdd.map(_.toString + " 不缓存 -> " + System.currentTimeMillis)
-    nocacheRdd.collect.foreach(println)
-    nocacheRdd.collect.foreach(println)
-    nocacheRdd.collect.foreach(println)
-
-    val cacheRdd = rdd.map(_.toString + " 缓存 -> " + System.currentTimeMillis).cache()
-    cacheRdd.collect.foreach(println)
-    cacheRdd.collect.foreach(println)
-    cacheRdd.collect.foreach(println)
+    /*
+    标记 RDD2的 checkpoint.
+    RDD2会被保存到文件中(文件位于前面设置的目录中), 并且会切断到父RDD的引用, 也就是切断了它向上的血缘关系
+    该函数必须在job被执行之前调用.
+    强烈建议把这个RDD序列化到内存中, 否则, 把他保存到文件的时候需要重新计算.
+     */
+    rdd2.checkpoint()
+    rdd2.collect().foreach(println)
+    rdd2.collect().foreach(println)
+    rdd2.collect().foreach(println)
   }
-
 }
