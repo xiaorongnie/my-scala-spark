@@ -5,6 +5,7 @@ import lombok.Data
 @Data
 object HelloWord {
   def main(args: Array[String]): Unit = {
+    println("file:///E:/aa/bb/cc.txt")
     val list = Array.range(1, 10)
 
     // partition
