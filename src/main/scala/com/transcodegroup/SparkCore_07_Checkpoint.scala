@@ -30,9 +30,10 @@ object SparkCore_07_Checkpoint {
     // 要在SparkContext初始化之前设置, 都在无效
     System.setProperty("HADOOP_USER_NAME", "root")
     val conf = new SparkConf().setAppName("Practice").setMaster("local[2]")
+    conf.set("dfs.client.use.datanode.hostname", "true")
     val sc = new SparkContext(conf)
     // 设置 checkpoint的目录. 如果spark运行在集群上, 则必须是 hdfs 目录
-    sc.setCheckpointDir("hdfs://192.168.0.230:9000/ck2")
+    sc.setCheckpointDir("hdfs://namenode:9000/ck3")
     val rdd1 = sc.parallelize(List("abc"))
     val rdd2: RDD[String] = rdd1.map(_ + " : " + System.currentTimeMillis())
 
@@ -43,7 +44,9 @@ object SparkCore_07_Checkpoint {
     强烈建议把这个RDD序列化到内存中, 否则, 把他保存到文件的时候需要重新计算.
      */
     rdd2.checkpoint()
+    rdd2.cache()
     rdd2.collect().foreach(println)
+    // rdd2.cache()
     rdd2.collect().foreach(println)
     rdd2.collect().foreach(println)
   }

@@ -38,7 +38,7 @@ object SparkCore_05_Lineage {
    * @return
    */
   def lineage(sc: SparkContext): Unit = {
-    val wordAndOne = sc.textFile("file:///C:/Users/eason/IdeaProjects/my-scala-spark/data/words.txt").flatMap(_.split("\t")).map((_,1))
+    val wordAndOne = sc.textFile("hdfs://namenode:9000/user/root/input/f2.txt").flatMap(_.split("\t")).map((_,1))
     logger.warn("wordAndOne1 -> {}", wordAndOne.collect())
     logger.warn("wordAndOne2 -> {}", wordAndOne.toDebugString)
     logger.warn("wordAndOne3 -> {}",  wordAndOne.dependencies)
