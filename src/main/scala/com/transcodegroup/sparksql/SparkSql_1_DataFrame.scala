@@ -1,10 +1,9 @@
 package com.transcodegroup.sparksql
 
 import org.apache.log4j.{Level, Logger}
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.sql.SparkSession
 import org.slf4j.LoggerFactory
-import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
-import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
+
 
 /**
  *

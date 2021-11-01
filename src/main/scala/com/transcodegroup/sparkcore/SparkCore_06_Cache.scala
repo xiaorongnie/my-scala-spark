@@ -1,5 +1,11 @@
 package com.transcodegroup.sparkcore
 
+import org.apache.spark.{SparkConf, SparkContext}
+import org.slf4j.LoggerFactory
+import org.apache.spark.rdd.RDD
+import org.apache.log4j.{Level, Logger}
+
+
 /**
  *
  * Spark Core快速入门系列(8) | RDD 的持久化
