@@ -1,7 +1,7 @@
 package com.transcodegroup.sparksql
 
 import org.apache.log4j.{Level, Logger}
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{SaveMode, SparkSession}
 import org.slf4j.LoggerFactory
 
 /**
@@ -20,6 +20,8 @@ object SparkSql_2_DataSet {
     Logger.getLogger("org.apache.hadoop").setLevel(Level.WARN)
     Logger.getLogger("org.apache.spark").setLevel(Level.WARN)
     Logger.getLogger("org.spark-project").setLevel(Level.WARN)
+    System.setProperty("HADOOP_USER_NAME", "root")
+
     // 为样例类创建一个编码器
     val sparkSession: SparkSession = SparkSession.builder()
       .master("local[*]")
@@ -47,5 +49,7 @@ object SparkSql_2_DataSet {
     // 从 DataSet到DataFrame
     val dsN = Seq(Person("Andy", 32)).toDS()
     dsN.toDF().show()
+
+    dsN.write.mode(SaveMode.Overwrite).save("hdfs://namenode:9000/ck4")
   }
 }
