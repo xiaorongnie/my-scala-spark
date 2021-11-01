@@ -1,6 +1,5 @@
-package com.transcodegroup
+package com.transcodegroup.sparkcore
 
-import com.transcodegroup.SparkCore_03_Action.logger
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{HashPartitioner, RangePartitioner, SparkConf, SparkContext}
@@ -49,6 +48,7 @@ object SparkCore_08_Partitioner {
 
   /**
    * HashPartitioner 分区弊端： 可能导致每个分区中数据量的不均匀，极端情况下会导致某些分区拥有 RDD 的全部数据。比如我们前面的例子就是一个极端, 他们都进入了 0 分区.
+   *
    * @param sc
    */
   def hashPartition(sc: SparkContext): Unit = {
@@ -66,8 +66,9 @@ object SparkCore_08_Partitioner {
   }
 
   /**
-   *  RangePartitioner 作用：将一定范围内的数映射到某一个分区内，尽量保证每个分区中数据量的均匀，而且分区与分区之间是有序的，
-   *  一个分区中的元素肯定都是比另一个分区内的元素小或者大，但是分区内的元素是不能保证顺序的。简单的说就是将一定范围内的数映射到某一个分区内。实现过程为：
+   * RangePartitioner 作用：将一定范围内的数映射到某一个分区内，尽量保证每个分区中数据量的均匀，而且分区与分区之间是有序的，
+   * 一个分区中的元素肯定都是比另一个分区内的元素小或者大，但是分区内的元素是不能保证顺序的。简单的说就是将一定范围内的数映射到某一个分区内。实现过程为：
+   *
    * @param sc
    */
   def rangePartitioner(sc: SparkContext): Unit = {

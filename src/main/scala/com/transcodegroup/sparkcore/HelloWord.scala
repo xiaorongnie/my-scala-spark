@@ -1,4 +1,4 @@
-package com.transcodegroup
+package com.transcodegroup.sparkcore
 
 import lombok.Data
 
@@ -25,7 +25,7 @@ object HelloWord {
     println("grouped...")
     val grouped = list.grouped(5)
     println(grouped.getClass)
-    while (grouped.hasNext){
+    while (grouped.hasNext) {
       println(grouped.next().mkString(","))
     }
 
@@ -33,7 +33,7 @@ object HelloWord {
     println("sliding...")
     val sliding = list.sliding(5)
     println(sliding.getClass)
-    while (sliding.hasNext){
+    while (sliding.hasNext) {
       println(sliding.next().mkString(","))
     }
   }

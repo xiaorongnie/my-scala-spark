@@ -1,4 +1,4 @@
-package com.transcodegroup
+package com.transcodegroup.sparkcore
 
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.{SparkConf, SparkContext}
@@ -37,11 +37,11 @@ object SparkCore_03_Action {
    * @return
    */
   def reduceOpt(sc: SparkContext): Unit = {
-    val rdd1 = sc.makeRDD(1 to 10,2)
-    logger.warn("reduceOpt -> {}",  rdd1.reduce(_+_))
+    val rdd1 = sc.makeRDD(1 to 10, 2)
+    logger.warn("reduceOpt -> {}", rdd1.reduce(_ + _))
 
-    val rdd2 = sc.makeRDD(Array(("a",1),("a",3),("c",3),("d",5)))
-    logger.warn("reduceOpt -> {}", rdd2.reduce((x,y)=>(x._1 + y._1, x._2 + y._2)))
+    val rdd2 = sc.makeRDD(Array(("a", 1), ("a", 3), ("c", 3), ("d", 5)))
+    logger.warn("reduceOpt -> {}", rdd2.reduce((x, y) => (x._1 + y._1, x._2 + y._2)))
   }
 
   /**
@@ -51,18 +51,18 @@ object SparkCore_03_Action {
    * @return
    */
   def collectOpt(sc: SparkContext): Unit = {
-    val rdd = sc.makeRDD(1 to 10,2)
-    logger.warn("collect -> {} count-> {}",  rdd.collect(), rdd.count)
-    logger.warn("first -> {} take 1-> {}",  rdd.first, rdd.take(3))
+    val rdd = sc.makeRDD(1 to 10, 2)
+    logger.warn("collect -> {} count-> {}", rdd.collect(), rdd.count)
+    logger.warn("first -> {} take 1-> {}", rdd.first, rdd.take(3))
     // 将该RDD所有元素相加得到结果
-    logger.warn("aggregate -> {}",  rdd.aggregate(0)(_+_,_+_))
+    logger.warn("aggregate -> {}", rdd.aggregate(0)(_ + _, _ + _))
     // fold aggregate的简化操作，seqop和combop一样的时候,可以使用fold
-    logger.warn("fold -> {}",  rdd.fold(0)(_+_))
+    logger.warn("fold -> {}", rdd.fold(0)(_ + _))
     rdd.foreach(println(_))
 
 
-    val rdd2 = sc.parallelize(List((1,3),(1,2),(1,4),(2,3),(3,6),(3,8)),3)
-    logger.warn("countByKey -> {}",  rdd2.countByKey)
+    val rdd2 = sc.parallelize(List((1, 3), (1, 2), (1, 4), (2, 3), (3, 6), (3, 8)), 3)
+    logger.warn("countByKey -> {}", rdd2.countByKey)
     rdd2.foreach(println(_))
 
   }
