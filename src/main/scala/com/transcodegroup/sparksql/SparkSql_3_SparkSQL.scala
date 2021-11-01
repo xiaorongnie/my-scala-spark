@@ -36,6 +36,8 @@ object SparkSql_3_SparkSQL {
     sparkSession.sql("select toUpper(name), age from people").show
 
     // 内置聚合函数
+    // Spark 系列（十一）—— Spark SQL 聚合函数 Aggregations
+    // https://juejin.cn/post/6844903950232059911#heading-12
     sparkSession.sql("select sum(age) from people").show
   }
 }
