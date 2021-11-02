@@ -37,7 +37,7 @@ object SparkSql_3_SparkSQL {
 
     // 内置聚合函数
     // Spark 系列（十一）—— Spark SQL 聚合函数 Aggregations
-    // https://juejin.cn/post/6844903950232059911#heading-12
+    // https://juejin.cn/post/6844903950232059911#heading-12 
     sparkSession.sql("select sum(age) from people").show
   }
 }
